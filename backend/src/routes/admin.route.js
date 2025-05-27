@@ -6,4 +6,4 @@ const router = Router();
 
 router.get("/", protectRoute,requireAdmin,createSong);
 
-export default router;;
+export default router;
