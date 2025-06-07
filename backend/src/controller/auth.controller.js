@@ -10,7 +10,7 @@ export const authCallback =  async (req, res,next) => {
         if(!user){
             //signUp
             await User.create({
-                clerckId:id,
+                clerkId:id,
                 fullName:`${firstName} ${lastName}`,
                 imageUrl
             });

@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import { clerkMiddleware } from '@clerk/express'
 import fileUpload from "express-fileupload";
 import Path from "path";
+import cors from "cors"
 
 import { connectDB } from "./lib/db.js";
 
@@ -19,6 +20,10 @@ const __dirname = Path.resolve();
 const app = express();
 const PORT =process.env.PORT 
 
+app.use(cors({
+    origin: "http://localhost:3000",
+    credentials: true,
+}))
 
 app.use(express.json())
 app.use(clerkMiddleware()); // this will add authentication to req obj => req.auth.userId
