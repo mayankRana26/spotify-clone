@@ -19,6 +19,7 @@ export const getAlbumById = async (req, res,next) => {
         }
         res.status(200).json(album);
 
+        
     } catch (error) {
         next(error);
     }
