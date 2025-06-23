@@ -1,5 +1,6 @@
 import { axiosIntance } from "@/lib/axios"
 import { useAuth } from "@clerk/clerk-react"
+
 import { Loader } from "lucide-react"
 
 import { useEffect, useState } from "react"
@@ -19,8 +20,8 @@ const AuthProvider = ({children}:{children: React.ReactNode}) => {
         const initAuth = async () => {
             try {
                 const token = await getToken()
+                
                 updateApiToken(token)
-
             } catch (error) {
                 updateApiToken(null)
                 console.log("Erroe in Auth Provider", error);

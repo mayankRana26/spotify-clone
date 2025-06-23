@@ -6,7 +6,6 @@
     "dev": "nodemon src/index.js",
     "seed:songs": "node src/seeds/songs.js",
     "seed:albums": "node src/seeds/albums.js"
-
   },
   "keywords": [],
   "type": "module",
@@ -14,7 +13,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "@clerk/express": "^1.5.0",
+    "@clerk/express": "^1.7.0",
     "cloudinary": "^2.6.1",
     "cors": "^2.8.5",
     "dotenv": "^16.5.0",
