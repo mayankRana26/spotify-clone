@@ -14,7 +14,7 @@ const SongsTabContent = () => {
 							<Music className='size-5 text-emerald-500' />
 							Songs Library
 						</CardTitle>
-						<CardDescription>Manage your music tracks</CardDescription>
+						<CardDescription className="mt-2">Manage your music tracks</CardDescription>
 					</div>
 					<AddSongDialog />
 				</div>

@@ -6,7 +6,6 @@ import FeaturedSection from "./components/FeaturedSection"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import SectionGrid from "./components/SectionGrid"
 import { usePlayerStore } from "@/stores/usePlayerStore"
-import { all } from "axios"
 
 
 

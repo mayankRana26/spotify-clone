@@ -14,12 +14,12 @@ const AdminPage = () => {
 	const { fetchAlbums, fetchSongs, fetchStats } = useMusicStore();
 
 	useEffect(() => {
-        // checkAdminStatus();
+      
 		fetchAlbums();
 		fetchSongs();
 		fetchStats();
 	}, [fetchAlbums, fetchSongs, fetchStats]);
-    console.log({ isAdmin, isLoading });
+  
 
 
 	if (!isAdmin && !isLoading) return <div>Unauthorized</div>;
