@@ -15,7 +15,7 @@ const FriendsActivity = () => {
         }
     }, [fetchUsers, isSignedIn]);
 
-    const isPlaying=true;
+    const isPlaying=false;
 
     if (!isLoaded) {
         return (
@@ -39,9 +39,7 @@ const FriendsActivity = () => {
 {!user && <LoginPrompt/>}
             <ScrollArea className="flex-1">
                 <div className="p-4 space-y-4">
-                    {users.length === 0 ? (
-                        <p className="text-zinc-400 text-sm">No users found.</p>
-                    ) : (
+                    {user && (
                         users.map((u) => (
                             <div
                                 key={u._id}

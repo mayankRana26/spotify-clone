@@ -1,4 +1,4 @@
-import { axiosIntance } from '@/lib/axios';
+import { axiosInstance  } from '@/lib/axios';
 import { create } from 'zustand'
 
 interface ChatStore {
@@ -16,7 +16,7 @@ export const useChatStore = create<ChatStore>((set) => ({
         set({ isLoading: true, error: null });
         try {
             
-            const response = await axiosIntance.get("/users");
+            const response = await axiosInstance .get("/users");
             set({ users: response.data });
         } catch (error: any) {
             console.error("❌ Error fetching users:", error); 

@@ -1,24 +1,32 @@
-import { clerkClient } from "@clerk/express";
+// ✅ Clerk v5+ Compatible
+import { getAuth, clerkClient } from "@clerk/express";
 
-export const protectRoute = async (req, res, next) => {
-    if(!req.auth.userId){
-         console.log("🔒 Auth Middleware Check:", req.auth);
-        return res.status(401).json({message:"Unauthorized from middleware- you should login first"});
-    }
-    next();
+// 🔐 Protect Route
+export const protectRoute = (req, res, next) => {
+  const auth = getAuth(req); // ✅ new way (req.auth is deprecated)
+  if (!auth.userId) {
+    return res.status(401).json({ message: "Unauthorized" });
+  }
+
+  req.userId = auth.userId; // ✅ save it for later use
+  next();
 };
 
+// 🛡️ Require Admin
+export const requireAdmin = async (req, res, next) => {
+  try {
+    const currentUser = await clerkClient.users.getUser(req.userId); // ✅ correct Clerk SDK function
+    const email = currentUser.primaryEmailAddress?.emailAddress;
 
-export const requireAdmin = async(req, res, next) => {
-    try {
-        const currentUser= await clerkClient.users.get(req.auth.userId);
-        const isAdmin=process.env.ADMIN_EMAIL ===currentUser.primaryEmailAddress?.emailAddress;
+    const isAdmin = email?.toLowerCase() === process.env.ADMIN_EMAIL?.toLowerCase(); // ✅ safe match
 
-        if(!isAdmin){
-            return res.status(401).json({message:"Unauthorized admin- you should login first"});
-        }
-        next();
-    } catch (error) {
-        next(error);
+    if (!isAdmin) {
+      return res.status(401).json({ message: "Unauthorized admin" });
     }
-}
+
+    next();
+  } catch (error) {
+    console.error("❌ Error in requireAdmin:", error);
+    return res.status(500).json({ message: "Internal server error" });
+  }
+};

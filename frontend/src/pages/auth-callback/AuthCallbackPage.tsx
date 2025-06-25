@@ -1,5 +1,5 @@
 import { Card, CardContent } from "@/components/ui/card"
-import { axiosIntance } from "@/lib/axios"
+import { axiosInstance } from "@/lib/axios"
 import { useUser } from "@clerk/clerk-react"
 import { Loader } from "lucide-react"
 import { useEffect, useRef } from "react"
@@ -16,7 +16,7 @@ const AuthCallbackPage = () => {
       try {
         syncAttempt.current=true;
         
-        await axiosIntance.post("/auth/callback", {
+        await axiosInstance.post("/auth/callback", {
           id: user.id,
           firstName: user.firstName,
           lastName: user.lastName,
