@@ -70,7 +70,7 @@ app.use("/api/stats",statRoutes)
 
 if (process.env.NODE_ENV === "production") {
     app.use(express.static(Path.join(__dirname, "../frontend/dist")));
-    app.get("*", (req, res) => {
+    app.get("/*splat", (req, res) => {
         res.sendFile(Path.resolve(__dirname, "../frontend", "dist", "index.html"));
     });
 }
