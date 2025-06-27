@@ -6,12 +6,11 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
-frontend/node_modules/
-backend/node_modules/
+node_modules
 
 # Ignore env files
-frontend/.env
-frontend/.env.local
+
+.env.local
 dist
 dist-ssr
 *.local
