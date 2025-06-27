@@ -6,7 +6,7 @@ import { HeadphonesIcon, Music, Users } from "lucide-react";
 import { useEffect } from "react";
 
 const FriendsActivity = () => {
-    const { users, fetchUsers } = useChatStore();
+    const { users, fetchUsers,onlineUsers ,userActivities} = useChatStore();
     const { user, isLoaded, isSignedIn } = useUser();
 
     useEffect(() => {
@@ -15,7 +15,7 @@ const FriendsActivity = () => {
         }
     }, [fetchUsers, isSignedIn]);
 
-    const isPlaying=false;
+ 
 
     if (!isLoaded) {
         return (
@@ -39,43 +39,58 @@ const FriendsActivity = () => {
 {!user && <LoginPrompt/>}
             <ScrollArea className="flex-1">
                 <div className="p-4 space-y-4">
-                    {user && (
-                        users.map((u) => (
+                    
+                        {users.map((user) => {
+                            const activity=userActivities.get(user.clerkId);
+                            const isPlaying = activity  && activity !== "Idle" ;
+
+                            return (
                             <div
-                                key={u._id}
+                                key={user._id}
                                 className="cursor-pointer hover:bg-zinc-800/50 rounded-md p-3 transition-colors group"
                             >
                                 <div className="flex items-start gap-3">
                                     <div className="relative">
                                         <Avatar className="size-10 border border-zinc-800">
-                                            <AvatarImage src={u.imageUrl} alt={u.fullName} />
-                                            <AvatarFallback>{u.fullName[0]}</AvatarFallback>
+                                            <AvatarImage src={user.imageUrl} alt={user.fullName} />
+                                            <AvatarFallback>{user.fullName[0]}</AvatarFallback>
                                         </Avatar>
                                         <div
-                                            className="absolute bottom-0 right-0 w-3 h-3 border-2 border-zinc-900 rounded-full bg-zinc-500"
+                                            className={`absolute bottom-0 right-0 w-3 h-3 border-2 border-zinc-900 rounded-full
+                                                    ${onlineUsers.has(user.clerkId) ? "bg-green-500" : "bg-zinc-500"}
+                                                `}
                                             aria-hidden="true"
                                         />
                                     </div>
 
                                     <div className="flex-1 min-w-0">
                                         <div className="flex items-center gap-2">
-                                            <span className="font-medium text-sm text-white">{u.fullName}</span>
+                                            <span className="font-medium text-sm text-white">{user.fullName}</span>
                                             {isPlaying && <Music className="size-3.5 text-emerald-400 shrink-0" />}
                                         </div>
                                         {isPlaying ? (
                                         <div className="mt-1">
-                                            <div className="text-sm text-white font-medium truncate">Cardigan</div>
-                                            <div className="text-xs text-zinc-400 truncate">by Taylor Swift</div>
+                                            <div className="text-sm text-white font-medium truncate">
+                                                {activity.replace("Playing ", "").split(" by ")[0]}
+                                            </div>
+                                            <div className="text-xs text-zinc-400 truncate">
+                                                {activity.split(" by ")[1]}
+                                            </div>
                                         </div>
                                         ) : (
-                                            <div className="mt-1 text-xs text-zinc-400">Idle</div>
+                                            <div className="mt-1 text-xs text-zinc-400">
+                                               Idle
+                                            </div>
                                         )}
                                     </div>
                                 </div>
                             </div>
-                        ))
+                        )}
                     )}
-                </div>
+                    
+
+
+                    </div>
             </ScrollArea>
         </div>
     );
