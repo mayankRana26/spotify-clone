@@ -12,7 +12,6 @@ backend/node_modules/
 # Ignore env files
 frontend/.env
 frontend/.env.local
-backend/.env
 dist
 dist-ssr
 *.local
